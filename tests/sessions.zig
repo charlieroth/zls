@@ -13,7 +13,8 @@ const initialize_msg_offs =
 ;
 
 const Server = struct {
-    process: *std.ChildProcess,
+    // process: *std.ChildProcess,
+    process: std.ChildProcess,
     request_id: u32 = 1,
 
     fn start(initialization: []const u8, expect: ?[]const u8) !Server {
@@ -107,8 +108,10 @@ const Server = struct {
     }
 };
 
-fn startZls() !*std.ChildProcess {
-    var process = try std.ChildProcess.init(&[_][]const u8{"zig-out/bin/zls" ++ suffix}, allocator);
+// fn startZls() !*std.ChildProcess {
+fn startZls() !std.ChildProcess {
+    // var process = try std.ChildProcess.init(&[_][]const u8{"zig-out/bin/zls" ++ suffix}, allocator);
+    var process = std.ChildProcess.init(&[_][]const u8{"zig-out/bin/zls" ++ suffix}, allocator);
     process.stdin_behavior = .Pipe;
     process.stdout_behavior = .Pipe;
     process.stderr_behavior = .Inherit;
